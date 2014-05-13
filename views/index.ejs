@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+	<title>Node Money</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+	<style>
+		body 		{ padding-top:80px; }
+		.af-money:before{ content: "";
+			display: block;
+			background: url("data:image/png;base64,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") no-repeat;
+			 width: 100px;
+			height: 100px;
+			float: left;
+			margin: 0 6px 0 0;}
+	</style>
+</head>
+<body>
+<div class="container">
+
+	<div class="jumbotron text-center">
+		<span class="fa af-money"></span>
+		<h1> Node Money</h1>
+
+		<p>Login or Register with:</p>
+
+		<a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>
+		<a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a>
+	</div>
+
+</div>
+</body>
+</html>
