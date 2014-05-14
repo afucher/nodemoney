@@ -1,4 +1,10 @@
+var account = require('./account');
 module.exports = function(app, passport) {
+
+	//Accounts
+	app.all('/accounts', account.list);
+	app.get('/accounts/:accountID',account.show);
+	app.get('/accounts/:accountID',account.load);
 
 	// =====================================
 	// HOME PAGE (with login links) ========
