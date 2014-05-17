@@ -1,2 +1,44 @@
-<h1><%= title %></h1>
-<h2><%= account.bank %></h2>
+<!doctype html>
+<html>
+<head>
+	<title>Node Authentication</title>
+	<!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">  load bootstrap css -->
+	<link rel="stylesheet" href="../css/bootstrap.css">
+	 <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> load fontawesome -->
+	<style>
+		body 		{ padding-top:80px; }
+	</style>
+</head>
+<body>
+<div class="container">
+	<h1><%= account.name %></h1>
+	<h2><%= account.bank %></h2>
+
+	<% if (transactions.length > 0) { %>
+		<table class="table">
+			<tr>
+				<th>Transaction</th>
+				<th>Value</th>
+			</tr>
+			
+		    <% for(var i=0; i<transactions.length; i++) { %>
+		    <tr>
+		    	<td> <%= transactions[i].description %>   </td>
+		    	<td> <%= transactions[i].value %>   </td>
+		    </tr>
+			<% } %>
+			
+		</table>
+	<% } %>
+
+	<form action= <%= account._id + '/transaction' %>  method="post">
+		<input type="number" name="value" pattern="[0-9]+([\.|,][0-9]+)?" step="0.01"
+            title="This should be a number with up to 2 decimal places."/>
+		<input type="text" name="description"/>
+		<input type="hidden" value= <%= account._id%> name="account_id"/>
+		<input type="hidden" value= <%= account.name%> name="account_name"/>
+		<input type="submit"/>
+	</form>
+</div>
+</body>
+</html>

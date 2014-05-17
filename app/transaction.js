@@ -1,22 +1,16 @@
-var Account          = require('../app/models/account');
-var Transaction      = require('../app/models/transaction');
+var Transaction = require('../app/models/transaction');
 
 exports.list = function(req, res){
-  Account.find(function(err,result){
+  Transaction.find(function(err,result){
     if (err) throw err;
-    res.render('accounts', { title: 'Accounts', accounts: result });
+    res.render('transactions', { title: 'Transaction', transactions: result });
   })
 };
 
 exports.show = function(req, res){
-  Account.findOne({ '_id' :  req.params.accountID },function(err,account){
+  Transaction.findOne({ '_id' :  req.params.transactionID },function(err,transaction){
     if (err) throw err;
-    Transaction.find({'account._id' : req.params.accountID},function(err,transactions){
-      if (err) throw err;
-      console.log(transactions);
-      res.render('accounts/show', { account: account, transactions : transactions });  
-    })
-    
+    res.render('transactions/show', { transaction: transaction });
   })
 };
 
@@ -45,22 +39,25 @@ exports.edit = function(req, res){
 };
 
 exports.insert = function(req, res){
-  var account_data = {
-    name : req.body.account,
-    bank : req.body.bank
+  var transaction_data = {
+      value : req.body.value
+    , account : {
+          _id : req.body.account_id
+        , name : req.body.account_name
+      }
+    , description : req.body.description
   };
-  if (req.body.openingBalance)
-    account_data.openingBalance = req.body.openingBalance*100;
-  var account = new Account(account_data);
 
-  account.save( function(error, data){
+  var transaction = new Transaction(transaction_data);
+
+  transaction.save( function(error, data){
       if(error){
             console.log(error);
       }
       else{
           console.log("data");
           console.log(data);
-          res.redirect('/accounts/'+data._id);
+          res.redirect('/accounts/'+req.body.account_id);
           //exports.list(req,res);
       }
   });

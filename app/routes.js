@@ -1,10 +1,16 @@
 var account = require('./account');
+var transaction = require('./transaction');
 module.exports = function(app, passport) {
 
 	//Accounts
-	app.all('/accounts', account.list);
+	app.get('/accounts/new',account.new);
+	app.get('/accounts', isLoggedIn ,account.list);
 	app.get('/accounts/:accountID',account.show);
-	app.get('/accounts/:accountID',account.load);
+	app.post('/accounts',account.insert);
+
+	//Transactions
+	app.get('/accounts/:accountID/transaction',transaction.show);
+	app.post('/accounts/:accountID/transaction',transaction.insert);
 
 	// =====================================
 	// HOME PAGE (with login links) ========
