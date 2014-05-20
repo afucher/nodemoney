@@ -11,6 +11,8 @@ exports.list = function(req, res){
 exports.show = function(req, res){
   Account.findOne({ '_id' :  req.params.accountID },function(err,account){
     if (err) throw err;
+    console.log(account);
+    console.log(account.balance);
     Transaction.find({'account._id' : req.params.accountID},function(err,transactions){
       if (err) throw err;
       //console.log(transactions);

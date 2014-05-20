@@ -6,6 +6,7 @@ var accountSchema = mongoose.Schema({
 
       name : String
     , bank : String
+    , balance : Number
     , created_at    : { type: Date }
     , updated_at    : { type: Date }
 

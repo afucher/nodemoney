@@ -13,6 +13,7 @@
 <div class="container">
 	<h1><%= account.name %></h1>
 	<h2><%= account.bank %></h2>
+	<h3>R$ <%= account.balance %> </h3>
 
 	<% if (transactions.length > 0) { %>
 		<table class="table">
@@ -22,7 +23,11 @@
 			</tr>
 			
 		    <% for(var i=0; i<transactions.length; i++) { %>
-		    <tr>
+		    <% if (transactions[i].credit) { %>
+		    <tr class="success">
+		    <% } else { %>
+		    <tr class="danger">
+		    <% } %>
 		    	<td> <%= transactions[i].description %>   </td>
 		    	<td> <%= transactions[i].value %>   </td>
 		    </tr>
