@@ -35,6 +35,7 @@
 		<input type="number" name="value" pattern="[0-9]+([\.|,][0-9]+)?" step="0.01"
             title="This should be a number with up to 2 decimal places."/>
 		<input type="text" name="description"/>
+		<input type="checkbox" name="credit"/>
 		<input type="hidden" value= <%= account._id%> name="account_id"/>
 		<input type="hidden" value= <%= account.name%> name="account_name"/>
 		<input type="submit"/>

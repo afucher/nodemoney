@@ -1,4 +1,5 @@
 var Transaction = require('../app/models/transaction');
+var Account = require('../app/models/account');
 
 exports.list = function(req, res){
   Transaction.find(function(err,result){
@@ -41,13 +42,14 @@ exports.edit = function(req, res){
 exports.insert = function(req, res){
   var transaction_data = {
       value : req.body.value
+    , credit : (! (req.body.credit === undefined))
     , account : {
           _id : req.body.account_id
         , name : req.body.account_name
       }
     , description : req.body.description
   };
-
+  //console.log( ! (req.body.credit === undefined));
   var transaction = new Transaction(transaction_data);
 
   transaction.save( function(error, data){
@@ -55,8 +57,18 @@ exports.insert = function(req, res){
             console.log(error);
       }
       else{
-          console.log("data");
-          console.log(data);
+          var value = data.value;
+
+          console.log(data.credit);
+          if ( !data.credit ) value = value * -1; 
+          var conditions = { _id: data.account._id }
+            , update = { $inc: { balance: value }}
+          Account.update(conditions, update, callback);
+
+          function callback (err, numAffected) {
+            // numAffected is the number of updated documents
+            console.log('affected rows: ' + numAffected);
+          };
           res.redirect('/accounts/'+req.body.account_id);
           //exports.list(req,res);
       }

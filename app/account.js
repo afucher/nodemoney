@@ -13,7 +13,7 @@ exports.show = function(req, res){
     if (err) throw err;
     Transaction.find({'account._id' : req.params.accountID},function(err,transactions){
       if (err) throw err;
-      console.log(transactions);
+      //console.log(transactions);
       res.render('accounts/show', { account: account, transactions : transactions });  
     })
     
