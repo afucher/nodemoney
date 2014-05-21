@@ -2,7 +2,7 @@ var Account          = require('../app/models/account');
 var Transaction      = require('../app/models/transaction');
 
 exports.list = function(req, res){
-  Account.find(function(err,result){
+  Account.find({user_id : req.user._id},function(err,result){
     if (err) throw err;
     res.render('accounts', { title: 'Accounts', accounts: result });
   })
@@ -11,8 +11,6 @@ exports.list = function(req, res){
 exports.show = function(req, res){
   Account.findOne({ '_id' :  req.params.accountID },function(err,account){
     if (err) throw err;
-    console.log(account);
-    console.log(account.balance);
     Transaction.find({'account._id' : req.params.accountID}).limit(10).sort({created_at : -1}).exec(function(err,transactions){
       if (err) throw err;
       //console.log(transactions);
@@ -48,8 +46,9 @@ exports.edit = function(req, res){
 
 exports.insert = function(req, res){
   var account_data = {
-    name : req.body.account,
-    bank : req.body.bank
+      name : req.body.account
+    , bank : req.body.bank
+    , user_id : req.user._id
   };
   if (req.body.openingBalance)
     account_data.openingBalance = req.body.openingBalance*100;

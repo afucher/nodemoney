@@ -1,12 +1,15 @@
 // load the things we need
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var ObjectId = Schema.ObjectId;
 
 // define the schema for our user model
-var accountSchema = mongoose.Schema({
+var accountSchema = Schema({
 
       name : String
     , bank : String
     , balance : Number
+    , user_id : ObjectId
     , created_at    : { type: Date }
     , updated_at    : { type: Date }
 

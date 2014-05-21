@@ -3,14 +3,14 @@ var transaction = require('./transaction');
 module.exports = function(app, passport) {
 
 	//Accounts
-	app.get('/accounts/new',account.new);
+	app.get('/accounts/new', isLoggedIn ,account.new);
 	app.get('/accounts', isLoggedIn ,account.list);
-	app.get('/accounts/:accountID',account.show);
-	app.post('/accounts',account.insert);
+	app.get('/accounts/:accountID', isLoggedIn ,account.show);
+	app.post('/accounts', isLoggedIn ,account.insert);
 
 	//Transactions
-	app.get('/accounts/:accountID/transaction',transaction.show);
-	app.post('/accounts/:accountID/transaction',transaction.insert);
+	app.get('/accounts/:accountID/transaction', isLoggedIn ,transaction.show);
+	app.post('/accounts/:accountID/transaction', isLoggedIn ,transaction.insert);
 
 	// =====================================
 	// HOME PAGE (with login links) ========
