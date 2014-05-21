@@ -1,3 +1,13 @@
+<!doctype html>
+<html>
+<head>
+	<title>Node Authentication</title>
+	<!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">  load bootstrap css -->
+	<link rel="stylesheet" href="../css/bootstrap.css">
+	 <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> load fontawesome -->
+</head>
+<body>
+<% include nav %>
 <h1><%= title %></h1>
 <ul>
     <% for(var i=0; i<accounts.length; i++) { %>
@@ -10,3 +20,6 @@
 </ul>
 
 <a href='accounts/new'>Incluir conta</a>
+
+</body>
+</html>

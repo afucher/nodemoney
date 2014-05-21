@@ -5,46 +5,59 @@
 	<!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">  load bootstrap css -->
 	<link rel="stylesheet" href="../css/bootstrap.css">
 	 <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> load fontawesome -->
-	<style>
-		body 		{ padding-top:80px; }
-	</style>
 </head>
 <body>
+<% include ../nav %>
 <div class="container">
-	<h1><%= account.name %></h1>
-	<h2><%= account.bank %></h2>
+	<h1>Conta: <%= account.name %></h1>
+	<h2>Banco: <%= account.bank %></h2>
 	<h3>R$ <%= account.balance %> </h3>
-
-	<% if (transactions.length > 0) { %>
-		<table class="table">
-			<tr>
-				<th>Transaction</th>
-				<th>Value</th>
-			</tr>
-			
-		    <% for(var i=0; i<transactions.length; i++) { %>
-		    <% if (transactions[i].credit) { %>
-		    <tr class="success">
-		    <% } else { %>
-		    <tr class="danger">
-		    <% } %>
-		    	<td> <%= transactions[i].description %>   </td>
-		    	<td> <%= transactions[i].value %>   </td>
-		    </tr>
+	<div class='row'>
+		<div class='col-md-6'>
+			<% if (transactions.length > 0) { %>
+				<table class="table">
+					<tr>
+						<th>Transaction</th>
+						<th>Value</th>
+					</tr>
+					
+				    <% for(var i=0; i<transactions.length; i++) { %>
+				    <% if (transactions[i].credit) { %>
+				    <tr class="success">
+				    <% } else { %>
+				    <tr class="danger">
+				    <% } %>
+				    	<td> <%= transactions[i].description %>   </td>
+				    	<td> <%= transactions[i].value %>   </td>
+				    </tr>
+					<% } %>
+					
+				</table>
 			<% } %>
-			
-		</table>
-	<% } %>
-
-	<form action= <%= account._id + '/transaction' %>  method="post">
-		<input type="number" name="value" pattern="[0-9]+([\.|,][0-9]+)?" step="0.01"
-            title="This should be a number with up to 2 decimal places."/>
-		<input type="text" name="description"/>
-		<input type="checkbox" name="credit"/>
-		<input type="hidden" value= <%= account._id%> name="account_id"/>
-		<input type="hidden" value= <%= account.name%> name="account_name"/>
-		<input type="submit"/>
-	</form>
+		</div>
+		<div class='col-md-6'>
+			<h2 class="text-info">Insira um novo lançamento</h2>
+			<form role="form" action= <%= account._id + '/transaction' %>  method="post">
+			  <div class="form-group">
+			    <label for="value">Valor</label>
+			    <input type="number" id="value" name="value" pattern="[0-9]+([\.|,][0-9]+)?" step="0.01"
+		            title="This should be a number with up to 2 decimal places."/>
+			  </div>
+			  <div class="form-group">
+			    <label for="description">Descrição</label>
+			    <input type="text" name="description" id="description"/>
+			  </div>
+			  <div class="checkbox">
+			    <label>
+			      <input type="checkbox" name="credit"> Crédito?
+			    </label>
+			  </div>
+			  <input type="hidden" value= <%= account._id%> name="account_id"/>
+			  <input type="hidden" value= <%= account.name%> name="account_name"/>
+			  <button type="submit" class="btn btn-primary">Inserir</button>
+			</form>
+		</div>
+	</div>
 </div>
 </body>
 </html>

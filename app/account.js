@@ -13,7 +13,7 @@ exports.show = function(req, res){
     if (err) throw err;
     console.log(account);
     console.log(account.balance);
-    Transaction.find({'account._id' : req.params.accountID},function(err,transactions){
+    Transaction.find({'account._id' : req.params.accountID}).limit(10).sort({created_at : -1}).exec(function(err,transactions){
       if (err) throw err;
       //console.log(transactions);
       res.render('accounts/show', { account: account, transactions : transactions });  
@@ -60,10 +60,7 @@ exports.insert = function(req, res){
             console.log(error);
       }
       else{
-          console.log("data");
-          console.log(data);
           res.redirect('/accounts/'+data._id);
-          //exports.list(req,res);
       }
   });
 
